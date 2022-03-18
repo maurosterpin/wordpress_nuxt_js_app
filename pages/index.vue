@@ -6,7 +6,7 @@
         <div class="row">
           <post-card v-for="post in posts" :key="post.slug" :post="post" />
           <div class="d-flex w-100">
-            <div class="ml-auto" v-if="pageInfo.hasNextPage">
+            <div v-if="pageInfo.hasNextPage" class="ml-auto">
               <NuxtLink :to="{ query: { after: pageInfo.endCursor } }"
                 ><span>Next Page</span></NuxtLink
               >
@@ -26,6 +26,12 @@ const postsCount = 5
 
 export default Vue.extend({
   name: 'IndexPage',
+  async asyncData({ store, query }) {
+    await store.dispatch('posts/getPosts', {
+      after: query.after,
+      first: postsCount,
+    })
+  },
   computed: {
     posts() {
       return (this.$store.state.posts as PostsState).posts
@@ -39,12 +45,6 @@ export default Vue.extend({
       await this.$nuxt.refresh()
       window.scrollTo(0, 0)
     },
-  },
-  async asyncData({ store, query }) {
-    await store.dispatch('posts/getPosts', {
-      after: query.after,
-      first: postsCount,
-    })
   },
 })
 </script>

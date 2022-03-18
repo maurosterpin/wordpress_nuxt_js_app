@@ -10,13 +10,13 @@
 import Vue from 'vue'
 import { PostsState } from '~/store/posts'
 export default Vue.extend({
+  async asyncData({ store, params }) {
+    await store.dispatch('posts/getPost', params.slug)
+  },
   computed: {
     post() {
       return (this.$store.state.posts as PostsState).post
     },
-  },
-  async asyncData({ store, params }) {
-    await store.dispatch('posts/getPost', params.slug)
   },
 })
 </script>
