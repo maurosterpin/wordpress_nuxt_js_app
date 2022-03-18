@@ -34,6 +34,12 @@ export default Vue.extend({
       return (this.$store.state.posts as PostsState).pageInfo
     },
   },
+  watch: {
+    async $route() {
+      await this.$nuxt.refresh()
+      window.scrollTo(0, 0)
+    },
+  },
   async asyncData({ store, query }) {
     await store.dispatch('posts/getPosts', {
       after: query.after,
