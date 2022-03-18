@@ -27,10 +27,10 @@ export default Vue.extend({
     posts() {
       return [
         {
-          title: 'test post',
+          title: 'Test Post',
           slug: 'test-post',
-          content: '<p>this is a test post</p>',
-          excerpt: '<p>this is a test post</p>',
+          content: '<p>This is a test post</p>',
+          excerpt: '<p>This is a test post</p>',
         },
       ]
     },
